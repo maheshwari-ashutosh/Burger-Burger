@@ -4,14 +4,17 @@ import ingredients from './BurgerIngredient/Ingredient';
 import './Burger.scss';
 
 const burger = (props) => {
+
+  const addIngredients = Object.keys(props.ingredients).map(igKey => {
+    return [...Array(props.ingredients[igKey])].map((_,i) => {
+      return <BurgerIngredients key={igKey + i} type={igKey}/>
+    })
+  })
+
   return (
     <div className="Burger">
       <BurgerIngredients type={ingredients.BREAD_TOP} />
-      <BurgerIngredients type={ingredients.CHEESE} />
-      <BurgerIngredients type={ingredients.LETTUCE} />
-      <BurgerIngredients type={ingredients.TOMATO} />
-      <BurgerIngredients type={ingredients.ONION} />
-      <BurgerIngredients type={ingredients.PATTY} />
+      {addIngredients}
       <BurgerIngredients type={ingredients.BREAD_BOTTOM} />
     </div>
   );
