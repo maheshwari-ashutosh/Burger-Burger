@@ -11,12 +11,12 @@ const buildControls = props => {
       ingredients[item] === ingredients.SEEDS2) {
         return null;
       }
-    return <BuildControl key={item} label={ingredients[item]} />
+    return <BuildControl {...props} key={item} label={ingredients[item]}/>
   });
 
   return (
     <div className="BuildControl">
-      {options};
+      {options}
     </div>
   );
 };

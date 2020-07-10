@@ -2,11 +2,12 @@
   display: flex;
   flex-flow: column;
   align-items: stretch;
-  padding: 0 40%;
-  background-color: orange;
+  max-width: 40rem;
+  margin: auto;
+  background-color: #eee;
 
   &__item {
-    margin: 1rem 0;
+    margin: .5rem 0;
     display: flex;
     & > * {
       margin: auto 1rem;
@@ -15,5 +16,15 @@
 
   &__label {
     margin: auto;
+  }
+
+  &__button {
+    border-radius: 3px;
+    padding: 1rem;
+    transition: background-color .2s;
+
+    &:active {
+      background-color: lighten(#333 , 10%);
+    }
   }
 }

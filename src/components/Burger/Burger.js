@@ -8,8 +8,8 @@ const burger = (props) => {
   const addIngredients = Object.keys(props.ingredients).map(igKey => {
     return [...Array(props.ingredients[igKey])].map((_,i) => {
       return <BurgerIngredients key={igKey + i} type={igKey}/>
-    })
-  })
+    });
+  }).reverse();
 
   return (
     <div className="Burger">

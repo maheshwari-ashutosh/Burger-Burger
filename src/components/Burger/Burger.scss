@@ -1,7 +1,11 @@
 .Burger {
-  width: 50rem;
-  height: 40rem;
-  padding: 2rem;
+  grid-row: 2;
+  grid-column: 3 / 7;
+  min-height: 40rem;
+  min-width: 40rem;
   text-align: center;
-  margin: 0 auto;
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
