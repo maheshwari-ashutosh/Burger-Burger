@@ -1,0 +1,19 @@
+.BuildControl {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  padding: 0 40%;
+  background-color: orange;
+
+  &__item {
+    margin: 1rem 0;
+    display: flex;
+    & > * {
+      margin: auto 1rem;
+    }
+  }
+
+  &__label {
+    margin: auto;
+  }
+}
