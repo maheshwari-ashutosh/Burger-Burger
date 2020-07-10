@@ -1,36 +1,36 @@
 import React from 'react';
-import ingredients from './Ingredient';
+import {Ingredient} from './Ingredient';
 import './BurgerIngredient.scss';
 import PropTypes from 'prop-types';
 
 const burgerIngredient = (props) => {
   let ingredient = null;
   switch (props.type) {
-    case ingredients.BREAD_TOP:
+    case Ingredient.BREAD_TOP:
       ingredient = (
-        <div className={ingredients.BREAD_TOP}>
-          <div className={ingredients.SEEDS1}></div>
-          <div className={ingredients.SEEDS2}></div>
+        <div className={Ingredient.BREAD_TOP}>
+          <div className={Ingredient.SEEDS1}></div>
+          <div className={Ingredient.SEEDS2}></div>
         </div>
       );
       break;
-    case ingredients.BREAD_BOTTOM:
-      ingredient = <div className={ingredients.BREAD_BOTTOM}></div>;
+    case Ingredient.BREAD_BOTTOM:
+      ingredient = <div className={Ingredient.BREAD_BOTTOM}></div>;
       break;
-    case ingredients.LETTUCE:
-      ingredient = <div className={ingredients.LETTUCE}></div>;
+    case Ingredient.LETTUCE:
+      ingredient = <div className={Ingredient.LETTUCE}></div>;
       break;
-    case ingredients.TOMATO:
-      ingredient = <div className={ingredients.TOMATO}></div>;
+    case Ingredient.TOMATO:
+      ingredient = <div className={Ingredient.TOMATO}></div>;
       break;
-    case ingredients.ONION:
-      ingredient = <div className={ingredients.ONION}></div>;
+    case Ingredient.ONION:
+      ingredient = <div className={Ingredient.ONION}></div>;
       break;
-    case ingredients.PATTY:
-      ingredient = <div className={ingredients.PATTY}></div>;
+    case Ingredient.PATTY:
+      ingredient = <div className={Ingredient.PATTY}></div>;
       break;
-    case ingredients.CHEESE:
-      ingredient = <div className={ingredients.CHEESE}></div>;
+    case Ingredient.CHEESE:
+      ingredient = <div className={Ingredient.CHEESE}></div>;
       break;
     default:
       ingredient = null;

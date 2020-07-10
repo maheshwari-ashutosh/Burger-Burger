@@ -1,4 +1,4 @@
-const ingredient = {
+export const Ingredient = {
   BREAD_TOP: 'BreadTop',
   BREAD_BOTTOM: 'BreadBottom',
   LETTUCE: 'Lettuce',
@@ -10,4 +10,10 @@ const ingredient = {
   SEEDS2: 'Seeds2' 
 };
 
-export default Object.freeze(ingredient);
+export const Price = {
+  Lettuce: 10,
+  Cheese: 15,
+  Patty: 30,
+  Tomato: 5,
+  Onion: 5,
+};

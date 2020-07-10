@@ -1,6 +1,6 @@
 import React from 'react';
 import BurgerIngredients from './BurgerIngredient/BurgerIngredient';
-import ingredients from './BurgerIngredient/Ingredient';
+import {Ingredient} from './BurgerIngredient/Ingredient';
 import './Burger.scss';
 
 const burger = (props) => {
@@ -13,9 +13,9 @@ const burger = (props) => {
 
   return (
     <div className="Burger">
-      <BurgerIngredients type={ingredients.BREAD_TOP} />
+      <BurgerIngredients type={Ingredient.BREAD_TOP} />
       {addIngredients}
-      <BurgerIngredients type={ingredients.BREAD_BOTTOM} />
+      <BurgerIngredients type={Ingredient.BREAD_BOTTOM} />
     </div>
   );
 }

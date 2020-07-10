@@ -17,6 +17,7 @@ $color-red: #fa8231;
   display: flex;
   flex-flow: column;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .btn {
@@ -44,4 +45,9 @@ $color-red: #fa8231;
       background-color: lighten($color-red, 10%);
     }
   }
+}
+
+.Price {
+  font-size: 2rem;
+  font-weight: 300;
 }

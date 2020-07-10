@@ -1,22 +1,26 @@
 import React from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import {Price} from '../../components/Burger/BurgerIngredient/Ingredient';
 
 class BurgerBuilder extends React.Component {
   state = {
-    ingredients: {
-      
-    },
+    ingredients: {},
+    price: 40
   };
 
   addIngredientHandler(ingredient, event) {
     console.log(ingredient, event);
     this.setState((state) => {
       const ingredients = {...state.ingredients};
-      ingredients[ingredient] = ingredients[ingredient] ? ingredients[ingredient]+1 : 1;
+      ingredients[ingredient] = ingredients[ingredient]
+        ? ingredients[ingredient] + 1
+        : 1;
+      const price = state.price + Price[ingredient];
       return {
         ingredients,
-      }
+        price
+      };
     });
   }
 
@@ -24,28 +28,32 @@ class BurgerBuilder extends React.Component {
     console.log(ingredient);
     this.setState((state) => {
       const ingredients = {...state.ingredients};
-      if(ingredients[ingredient]) {
+      let price = state.price;
+      if (ingredients[ingredient]) {
         ingredients[ingredient]--;
-        if(!ingredients[ingredient]) {
+        price -= Price[ingredient];
+        if (!ingredients[ingredient]) {
           delete ingredients[ingredient];
         }
       }
       return {
         ingredients,
-      }
+        price,
+      };
     });
   }
 
   render() {
     return (
-      <div className='Main'>
+      <>
         <Burger ingredients={this.state.ingredients} />
+        <h2 className="Price">Price : Rs {this.state.price}</h2>
         <BuildControls
           add={this.addIngredientHandler.bind(this)}
           remove={this.removeIngredientHandler.bind(this)}
           quantity={this.state.ingredients}
         />
-      </div>
+      </>
     );
   }
 }
