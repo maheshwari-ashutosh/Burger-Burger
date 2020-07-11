@@ -20,12 +20,10 @@
   }
 
   &__button {
-    border-radius: 3px;
-    padding: 1rem;
-    transition: background-color .2s;
-
-    &:active {
-      background-color: lighten(#333 , 10%);
+    margin-top: 1rem;
+    align-self: center;
+    &:not(:disabled) {
+      animation: bounce .5s;
     }
   }
 
@@ -34,5 +32,20 @@
     font-weight: 300;
     text-align: center;
     margin-bottom: 1rem;
+  }
+}
+
+@keyframes bounce {
+
+  from {
+    transform: none;
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  to {
+    transform: none;
   }
 }

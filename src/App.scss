@@ -1,9 +1,20 @@
-$color-green: #26de81;
-$color-red: #fa8231;
+$color-green: #2e7d32;
+$color-red: #d84315;
+$color-blue: #03a9f4;
+
+@mixin btnclr($color) {
+  background-color: $color;
+  &:hover {
+    background-color: lighten($color, 10%);
+  }
+  &:active {
+    background-color: darken($color, 20%);
+  }
+}
 
 .Layout {
   display: grid;
-  grid: minmax(30px, 50px) 80vh 10vh / repeat(8, 1fr);
+  grid: minmax(30px, 50px) 90vh / repeat(8, 1fr);
 }
 
 .Toolbar {
@@ -16,7 +27,7 @@ $color-red: #fa8231;
   grid-column: 1 / -1;
   display: flex;
   flex-flow: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -25,7 +36,9 @@ $color-red: #fa8231;
   color: white;
   padding: 1.5rem;
   cursor: pointer;
-
+  border-radius: 2px;
+  padding: 1rem;
+  transition: background-color 0.2s;
   &:hover,
   &:focus,
   &:active {
@@ -33,18 +46,17 @@ $color-red: #fa8231;
   }
 
   &--green {
-    background-color: $color-green;
-    &:hover {
-      background-color: lighten($color-green, 10%);
-    }
+    @include btnclr($color-green);
   }
 
   &--red {
-    background-color: $color-red;
-    &:hover {
-      background-color: lighten($color-red, 10%);
-    }
+    @include btnclr($color-red);
   }
+
+  &--blue {
+    @include btnclr($color-blue);
+  }
+
   &:disabled {
     background-color: #777;
     cursor: auto;

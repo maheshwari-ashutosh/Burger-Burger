@@ -6,7 +6,8 @@ import {Price} from '../../components/Burger/BurgerIngredient/Ingredient';
 class BurgerBuilder extends React.Component {
   state = {
     ingredients: {},
-    price: 40
+    price: 40,
+    numberOfIngredients: 0,
   };
 
   addIngredientHandler(ingredient, event) {
@@ -19,7 +20,8 @@ class BurgerBuilder extends React.Component {
       const price = state.price + Price[ingredient];
       return {
         ingredients,
-        price
+        price,
+        numberOfIngredients: state.numberOfIngredients + 1,
       };
     });
   }
@@ -39,6 +41,7 @@ class BurgerBuilder extends React.Component {
       return {
         ingredients,
         price,
+        numberOfIngredients: state.numberOfIngredients - 1,
       };
     });
   }
@@ -52,6 +55,7 @@ class BurgerBuilder extends React.Component {
           remove={this.removeIngredientHandler.bind(this)}
           ingredients={this.state.ingredients}
           price={this.state.price}
+          isPlacebale={this.state.numberOfIngredients !== 0}
         />
       </>
     );

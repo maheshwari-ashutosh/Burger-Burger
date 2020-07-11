@@ -20,6 +20,7 @@ const buildControls = (props) => {
     <div className='BuildControl'>
       <h2 className='Price'>Price : Rs {props.price}</h2>
       {options}
+      <button className="btn btn--blue BuildControl__button" disabled={!props.isPlacebale}>Checkout</button>
     </div>
   );
 };
