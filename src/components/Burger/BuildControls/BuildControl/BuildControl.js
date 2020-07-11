@@ -1,6 +1,7 @@
 import React from 'react';
 
 const buildControl = (props) => {
+  const disabled = props.ingredients[props.label] ? false : true;
   return (
     <div className='BuildControl__item'>
       <h2 className='BuildControl__label'>{props.label}</h2>
@@ -12,12 +13,13 @@ const buildControl = (props) => {
       >
         Add
       </button>
-      <h2>{props.quantity[props.label] || 0}</h2>
+      <h2>{props.ingredients[props.label] || 0}</h2>
       <button
         onClick={() => {
           props.remove(props.label);
         }}
         className='btn btn--red BuildControl__button'
+        disabled = {disabled}
       >
         Remove
       </button>

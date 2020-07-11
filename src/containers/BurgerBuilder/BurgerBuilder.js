@@ -51,7 +51,7 @@ class BurgerBuilder extends React.Component {
         <BuildControls
           add={this.addIngredientHandler.bind(this)}
           remove={this.removeIngredientHandler.bind(this)}
-          quantity={this.state.ingredients}
+          ingredients={this.state.ingredients}
         />
       </>
     );
