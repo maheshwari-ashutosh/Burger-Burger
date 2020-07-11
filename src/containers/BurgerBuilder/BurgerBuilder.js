@@ -47,11 +47,11 @@ class BurgerBuilder extends React.Component {
     return (
       <>
         <Burger ingredients={this.state.ingredients} />
-        <h2 className="Price">Price : Rs {this.state.price}</h2>
         <BuildControls
           add={this.addIngredientHandler.bind(this)}
           remove={this.removeIngredientHandler.bind(this)}
           ingredients={this.state.ingredients}
+          price={this.state.price}
         />
       </>
     );
