@@ -1,5 +1,5 @@
 .Modal {
-  position: absolute;
+  position: fixed;
   min-width: 40rem;
   padding: 2rem 1rem;
   top: 50%;
@@ -9,5 +9,15 @@
   box-shadow: 10px 10px 30px rgba(0,0,0,.8);
   border-radius: 5px;
   z-index: 20;
-  transition: opacity .5s;
+  animation: popout .3s;
+}
+
+@keyframes popout {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1) translate(-50% , -50%);
+  }
 }

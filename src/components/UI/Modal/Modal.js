@@ -9,13 +9,13 @@ const modal = (props) => {
       visibility,
       opacity,
    };
-  return (
+  return ( visibility === 'visible' ?
     <div>
       <div className='Modal' style={style}>
          {props.children}
       </div>
       <Backdrop dismiss={props.dismiss} style={style} />
-    </div>
+    </div> : null
   );
 };
 
