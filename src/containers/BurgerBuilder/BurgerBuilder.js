@@ -2,12 +2,14 @@ import React from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import {Price} from '../../components/Burger/BurgerIngredient/Ingredient';
+import Modal from '../../components/UI/Modal/Modal';
 
 class BurgerBuilder extends React.Component {
   state = {
     ingredients: {},
     price: 40,
     numberOfIngredients: 0,
+    isModalVisible: false,
   };
 
   addIngredientHandler(ingredient, event) {
@@ -46,6 +48,14 @@ class BurgerBuilder extends React.Component {
     });
   }
 
+  checkoutHandler() {
+    this.setState((state) => (
+      {
+        isModalVisible: !state.isModalVisible,
+      }
+    ));
+  }
+
   render() {
     return (
       <>
@@ -53,10 +63,12 @@ class BurgerBuilder extends React.Component {
         <BuildControls
           add={this.addIngredientHandler.bind(this)}
           remove={this.removeIngredientHandler.bind(this)}
+          checkout={this.checkoutHandler.bind(this)}
           ingredients={this.state.ingredients}
           price={this.state.price}
           isPlacebale={this.state.numberOfIngredients !== 0}
         />
+        <Modal visible={this.state.isModalVisible} dismiss={this.checkoutHandler.bind(this)}/>
       </>
     );
   }
