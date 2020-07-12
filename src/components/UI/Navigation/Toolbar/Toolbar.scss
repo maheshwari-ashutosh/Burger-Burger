@@ -1,0 +1,25 @@
+.Toolbar {
+  display: flex;
+  background: #4a58f0;
+  justify-content: space-between;
+  box-shadow: 0 1px 10px rgba(0,0,0,.7);
+  z-index: 5;
+  position: fixed;
+  width: 100%;
+  height: 5rem;
+  &__logo {
+    
+  }
+
+  img {
+    height: 100%;
+    width: 5rem;
+  }
+
+  &__navigation {
+    margin-right: 3rem;
+    &--item {
+      margin: 1rem 2rem !important;
+    }
+  }
+}

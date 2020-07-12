@@ -15,8 +15,8 @@
     grid-row: 2 / 3;
     grid-column: 2 / 4;
     list-style: none;
-    border-top: 1px solid #777;
-    border-bottom: 1px solid #777;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     display: flex;
     flex-flow: column;
 
@@ -29,7 +29,7 @@
       &:last-child {
         font-size: 1.8rem;
         border-top: 1px solid #aaa;
-        color: green;
+        color: #d500f9;
         margin-top: auto;
         padding: 1rem 0;
       }

@@ -1,6 +1,6 @@
 .BreadBottom {
-  height: 18%;
-  width: 80%;
+  height: 6rem;
+  width: 36rem;
   background: linear-gradient(#f08e4a, #e27b36);
   border-radius: 0 0 30px 30px;
   box-shadow: inset -15px 0 #c15711;
@@ -8,8 +8,8 @@
 }
 
 .BreadTop {
-  height: 25%;
-  width: 80%;
+  height: 8rem;
+  width: 36rem;
   background: linear-gradient(#bc581e, #e27b36);
   border-radius: 50% 50% 0 0;
   box-shadow: inset -15px 0 #c15711;
@@ -81,7 +81,7 @@
 }
 
 .Tomato {
-  width: 80%;
+  width: 34rem;
   height: 5%;
   margin: 0 auto;
   position: relative;
@@ -110,8 +110,8 @@
 }
 
 .Patty {
-  width: 80%;
-  height: 15%;
+  width: 36rem;
+  height: 4rem;
   max-height: 30%;
   background: linear-gradient(#7f3608, #702e05);
   margin: 0 auto;
@@ -119,15 +119,15 @@
 }
 
 .Cheese {
-  width: 90%;
+  width: 40rem;
   height: 2%;
   margin: 0 auto;
-  background: linear-gradient(#f4d004, #d6bb22);
+  background: #f0e149;
   border-radius: 20px;
 }
 
 .Lettuce {
-  width: 85%;
+  width: 42rem;
   height: 2%;
   margin: 0 auto;
   background: linear-gradient(#228c1d, #91ce50);
@@ -135,7 +135,7 @@
 }
 
 .Onion {
-  width: 25%;
+  width: 12rem;
   height: 3%;
   margin: 0 auto;
   border-radius: 2px;
