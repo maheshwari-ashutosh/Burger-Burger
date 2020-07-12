@@ -18,9 +18,9 @@ const buildControls = (props) => {
 
   return (
     <div className='BuildControl'>
-      <h2 className='Price'>Price : Rs {props.price}</h2>
+      <h2 className='Price'>Price : Rs. {props.price}</h2>
       {options}
-      <button onClick={props.checkout} className="btn btn--blue BuildControl__button" disabled={!props.isPlacebale}>Checkout</button>
+      <button onClick={props.checkout} className="btn btn--blue BuildControl__button" disabled={!props.isPlacebale}>Order Now</button>
     </div>
   );
 };

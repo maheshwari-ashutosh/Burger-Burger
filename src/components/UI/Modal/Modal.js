@@ -11,7 +11,9 @@ const modal = (props) => {
    };
   return (
     <div>
-      <div className='Modal' style={style}></div>
+      <div className='Modal' style={style}>
+         {props.children}
+      </div>
       <Backdrop dismiss={props.dismiss} style={style} />
     </div>
   );
