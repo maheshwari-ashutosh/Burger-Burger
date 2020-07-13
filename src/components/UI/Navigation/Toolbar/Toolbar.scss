@@ -40,6 +40,16 @@
       visibility: visible;
       background-color: #fff;
     }
+
+    &:active {
+      &::before {
+        top: -10px;
+      }
+      &::after{
+        top: 10px;
+      }
+    }
+
     &::before,
     &::after {
       content: '';
@@ -48,6 +58,7 @@
       height: 2px;
       width: 4rem;
       background-color: #fff;
+      transition: top .3s;
     }
 
     &::before {
