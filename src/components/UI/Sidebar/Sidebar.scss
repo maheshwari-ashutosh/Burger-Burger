@@ -1,0 +1,54 @@
+.Sidebar {
+  width: 25rem;
+  height: 100%;
+  position: fixed;
+  top: 7rem;
+  right: 0;
+  z-index: 4;
+  transform-origin: right;
+  transition: transform .5s cubic-bezier(0,.4,.39,.99);
+  background-color: rgba(#255997,.7);
+  backdrop-filter: blur(20px);
+  
+
+  &__navigation {
+    justify-content: start !important;
+    align-items: stretch;
+    &--item {
+      a {
+        font-size: 2.3rem;
+        color: #fff !important;
+        &:active,
+        &:focus {
+          background-color: none !important;
+        }
+      }
+      // border: 1px solid #eee;
+      position: relative;
+      margin: 1rem 0 !important;
+      padding: 1rem;
+      padding-left: 3rem;
+
+      &:active,&:focus {
+        color: white;
+        background-color: none !important;
+        &::before {
+          width: 100px;
+        }
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #eee;
+        transition: width 1s;
+        z-index: -1;
+      }
+    }
+  }
+}

@@ -1,12 +1,13 @@
 .Toolbar {
   display: flex;
-  background: #4a58f0;
+  background: #369de2;
   justify-content: space-between;
   box-shadow: 0 1px 10px rgba(0,0,0,.7);
   z-index: 5;
   position: fixed;
   width: 100%;
-  height: 5rem;
+  height: 7rem;
+  backdrop-filter: blur(20px);
   &__logo {
     
   }
@@ -20,6 +21,43 @@
     margin-right: 3rem;
     &--item {
       margin: 1rem 2rem !important;
+    }
+    @media (max-width: 500px) {
+      visibility: hidden;
+    }
+  }
+
+  &__button {
+    visibility: hidden;
+    position: absolute;
+    top: calc(3.5rem - 1px);
+    right: 1rem;
+    display: block;
+    width: 4rem;
+    height: 2px;
+
+    @media (max-width: 500px) {
+      visibility: visible;
+      background-color: #fff;
+    }
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 4rem;
+      background-color: #fff;
+    }
+
+    &::before {
+      top: -8px;
+      left: 0;
+    }
+
+    &::after{
+      top: 8px;
+      left: 0;
     }
   }
 }

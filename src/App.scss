@@ -1,6 +1,6 @@
 $color-green: #2aa21f;
 $color-red: #dc504f;
-$color-blue: #d500f9;
+$color-blue: #e27b36;
 
 @mixin btnclr($color) {
   background-color: $color;
@@ -14,7 +14,7 @@ $color-blue: #d500f9;
 
 .Layout {
   display: grid;
-  grid: 5rem calc(100vh - 5rem) / repeat(8, 1fr);
+  grid: 7rem calc(100vh - 5rem) / repeat(8, 1fr);
   @media (max-width: 500px) {
     grid: 30px 90vh / repeat(8, 1fr);
   }
@@ -27,6 +27,7 @@ $color-blue: #d500f9;
   flex-flow: column;
   justify-content: space-between;
   align-items: center;
+  background-color: #fdf4e4;
 }
 
 .btn {

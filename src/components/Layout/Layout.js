@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Toolbar from '../UI/Navigation/Toolbar/Toolbar';
-const layout = (props) => (
-  <div className="Layout">
-    <Toolbar />
-    <main className="Main">{props.children}</main>
-  </div>
-);
+import Sidebar from '../UI/Sidebar/Sidebar';
+function Layout(props) {
+  
+  const sidebarWidth = '25rem';
 
-export default layout;
+  const [style, setStyle] = useState({
+    transform: `translate(${sidebarWidth})`,
+  });
+
+  const sidebarHandler = () => {
+    if(style.transform === `translate(${sidebarWidth})`) {
+      setStyle({
+        transform: 'none',
+      });
+    } else {
+      setStyle({
+        transform: `translate(${sidebarWidth})`,
+      });
+    }
+  };
+  
+  return (
+    <div className='Layout'>
+      <Toolbar click={sidebarHandler} />
+      <Sidebar dismiss={sidebarHandler} style={style} />
+      <main className='Main'>{props.children}</main>
+    </div>
+  );
+};
+
+export default Layout;
