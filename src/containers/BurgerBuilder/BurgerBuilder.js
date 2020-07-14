@@ -68,7 +68,7 @@ class BurgerBuilder extends React.Component {
           <BuildControls
             checkout={this.checkoutHandler.bind(this)}
             price={this.state.price}
-            isPlacebale={this.state.numberOfIngredients !== 0}
+            isPlaceable={this.state.numberOfIngredients !== 0}
           />
         </BuildControlContext.Provider>
         <Modal
