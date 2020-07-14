@@ -4,6 +4,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import {Price} from '../../components/Burger/BurgerIngredient/Ingredient';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import BuildControlContext from '../../Context/BuildControlContext';
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -14,7 +15,6 @@ class BurgerBuilder extends React.Component {
   };
 
   addIngredientHandler(ingredient, event) {
-    console.log(ingredient, event);
     this.setState((state) => {
       const ingredients = {...state.ingredients};
       ingredients[ingredient] = ingredients[ingredient]
@@ -30,7 +30,6 @@ class BurgerBuilder extends React.Component {
   }
 
   removeIngredientHandler(ingredient, event) {
-    console.log(ingredient);
     this.setState((state) => {
       const ingredients = {...state.ingredients};
       let price = state.price;
@@ -59,19 +58,28 @@ class BurgerBuilder extends React.Component {
     return (
       <>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-          add={this.addIngredientHandler.bind(this)}
-          remove={this.removeIngredientHandler.bind(this)}
-          checkout={this.checkoutHandler.bind(this)}
-          ingredients={this.state.ingredients}
-          price={this.state.price}
-          isPlacebale={this.state.numberOfIngredients !== 0}
-        />
+        <BuildControlContext.Provider
+          value={{
+            ingredients: this.state.ingredients,
+            add: this.addIngredientHandler.bind(this),
+            remove: this.removeIngredientHandler.bind(this),
+          }}
+        >
+          <BuildControls
+            checkout={this.checkoutHandler.bind(this)}
+            price={this.state.price}
+            isPlacebale={this.state.numberOfIngredients !== 0}
+          />
+        </BuildControlContext.Provider>
         <Modal
           visible={this.state.isModalVisible}
           dismiss={this.checkoutHandler.bind(this)}
         >
-          <OrderSummary total={this.state.price} ingredients={this.state.ingredients} cancel={this.checkoutHandler.bind(this)}/>
+          <OrderSummary
+            total={this.state.price}
+            ingredients={this.state.ingredients}
+            cancel={this.checkoutHandler.bind(this)}
+          />
         </Modal>
       </>
     );

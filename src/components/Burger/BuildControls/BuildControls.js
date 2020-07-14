@@ -13,7 +13,7 @@ const buildControls = (props) => {
     ) {
       return null;
     }
-    return <BuildControl {...props} key={item} label={Ingredient[item]} />;
+    return <BuildControl key={item} label={Ingredient[item]} />;
   });
 
   return (

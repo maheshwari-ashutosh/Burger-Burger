@@ -31,6 +31,9 @@
       margin-top: 3rem;
       align-self: center;
       padding: 1.5rem;
+      &:not(:disabled) {
+        animation: bounce 0.5s;
+      }
     }
   }
 
