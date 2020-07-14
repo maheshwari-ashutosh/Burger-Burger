@@ -5,9 +5,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255,255,255,.5);
-  box-shadow: 10px 10px 30px rgba(0,0,0,.8);
-  border-radius: 5px;
+  background-color: rgba(255,255,255,1);
+  box-shadow: 5px 5px rgba(0,0,0,.3);
+  // border-radius: 5px;
   z-index: 20;
   animation: popout .3s;
 }
