@@ -29,7 +29,7 @@ const orderSummary = (props) => {
       >
         Cancel
       </button>
-      <button className='OrderSummary__confirm btn btn--green'>Confirm</button>
+      <button onClick={props.confirm} className='OrderSummary__confirm btn btn--green'>Confirm</button>
     </div>
   );
 };

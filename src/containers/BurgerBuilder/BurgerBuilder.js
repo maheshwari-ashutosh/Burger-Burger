@@ -1,10 +1,12 @@
 import React from 'react';
+import axios from '../../axios-order';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import {Price} from '../../components/Burger/BurgerIngredient/Ingredient';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import BuildControlContext from '../../Context/BuildControlContext';
+
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -54,6 +56,26 @@ class BurgerBuilder extends React.Component {
     }));
   }
 
+  confirmOrderHandler() {
+    const data = {
+      ingredients: this.state.ingredients,
+      price: this.state.price,
+      customer: {
+        name: 'Ashutosh',
+        address: {
+          street: 'Test Street',
+          zip: '123463',
+          country: 'India',
+        },
+        email: 'ashutosh.ismcse@gmail.com  ',
+        deliveryMethod: 'fastest',
+      }
+    }
+    axios.post('/orders', data).then(res => {
+      console.log(res);
+    });
+  }
+
   render() {
     return (
       <>
@@ -79,6 +101,7 @@ class BurgerBuilder extends React.Component {
             total={this.state.price}
             ingredients={this.state.ingredients}
             cancel={this.checkoutHandler.bind(this)}
+            confirm={this.confirmOrderHandler.bind(this)}
           />
         </Modal>
       </>
