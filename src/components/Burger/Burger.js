@@ -12,6 +12,7 @@ const burger = (props) => {
   }).reverse();
 
   return (
+    Object.keys(Ingredient).length !== 0 &&
     <div className="Burger">
       <BurgerIngredients type={Ingredient.BREAD_TOP} />
       {addIngredients}

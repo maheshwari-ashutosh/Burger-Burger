@@ -7,6 +7,11 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import BuildControlContext from '../../Context/BuildControlContext';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import {
+  updateIngredient,
+  updatePrice,
+} from '../../components/Burger/BurgerIngredient/Ingredient';
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -15,7 +20,31 @@ class BurgerBuilder extends React.Component {
     numberOfIngredients: 0,
     isModalVisible: false,
     loading: false,
+    isIngredientsLoaded: false,
   };
+
+  fetchIngredients() {
+    axios
+      .get('/ingredients')
+      .then((res) => {
+        console.log(res.data);
+        updateIngredient(res.data[0].ingredients);
+        updatePrice(res.data[0].prices);
+        this.setState({
+          isIngredientsLoaded: true,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({
+          isIngredientsLoaded: true,
+        });
+      });
+  }
+
+  componentDidMount() {
+    this.fetchIngredients();
+  }
 
   addIngredientHandler(ingredient, event) {
     this.setState((state) => {
@@ -105,9 +134,24 @@ class BurgerBuilder extends React.Component {
       />
     );
 
+    let burger = this.state.isIngredientsLoaded ? (
+      <Burger ingredients={this.state.ingredients} />
+    ) : (
+      <Spinner />
+    );
+    let burgerBuilder = this.state.isIngredientsLoaded ? (
+      <BuildControls
+        checkout={this.checkoutHandler.bind(this)}
+        price={this.state.price}
+        isOrderPlaceable={this.state.numberOfIngredients !== 0}
+      />
+    ) : (
+      <Spinner />
+    );
+
     return (
       <>
-        <Burger ingredients={this.state.ingredients} />
+        {burger}
         <BuildControlContext.Provider
           value={{
             ingredients: this.state.ingredients,
@@ -115,11 +159,7 @@ class BurgerBuilder extends React.Component {
             remove: this.removeIngredientHandler.bind(this),
           }}
         >
-          <BuildControls
-            checkout={this.checkoutHandler.bind(this)}
-            price={this.state.price}
-            isPlaceable={this.state.numberOfIngredients !== 0}
-          />
+          {burgerBuilder}
         </BuildControlContext.Provider>
         <Modal
           visible={this.state.isModalVisible}
@@ -132,4 +172,4 @@ class BurgerBuilder extends React.Component {
   }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
