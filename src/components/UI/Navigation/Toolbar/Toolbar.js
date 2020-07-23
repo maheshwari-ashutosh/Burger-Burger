@@ -6,9 +6,8 @@ import NavItem from '../NavItem';
 
 const toolbar = (props) => {
   const navList = [
-    new NavItem('About', '#'),
-    new NavItem('Burger Builder', '#'),
-    new NavItem('Help', '#'),
+    new NavItem('Burger Builder', '/'),
+    new NavItem('Orders', '/orders'),
   ];
 
   return (

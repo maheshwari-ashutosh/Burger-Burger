@@ -1,4 +1,5 @@
 import React from 'react';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import axios from '../../axios-order';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -12,6 +13,7 @@ import {
   updateIngredient,
   updatePrice,
 } from '../../components/Burger/BurgerIngredient/Ingredient';
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -44,6 +46,7 @@ class BurgerBuilder extends React.Component {
 
   componentDidMount() {
     this.fetchIngredients();
+    console.log(this.props);
   }
 
   addIngredientHandler(ingredient, event) {
@@ -112,6 +115,8 @@ class BurgerBuilder extends React.Component {
           loading: false,
           isModalVisible: false,
         });
+        console.log(this.props);
+        this.props.history.push('/Checkout');
       })
       .catch((error) => {
         this.setState({
@@ -120,6 +125,10 @@ class BurgerBuilder extends React.Component {
         });
         console.log(error);
       });
+  }
+
+  cancelCheckoutHandler() {
+    this.props.history.goBack();
   }
 
   render() {
@@ -149,6 +158,8 @@ class BurgerBuilder extends React.Component {
       <Spinner />
     );
 
+    let checkoutSummary = <CheckoutSummary ingredients={this.state.ingredients} total={this.state.price} cancel= {this.cancelCheckoutHandler.bind(this)}/>;
+
     return (
       <>
         {burger}
@@ -159,7 +170,10 @@ class BurgerBuilder extends React.Component {
             remove: this.removeIngredientHandler.bind(this),
           }}
         >
-          {burgerBuilder}
+          <Switch>
+            <Route path='/Checkout' exact render={() => checkoutSummary} />
+            <Route path='/' exact render={() => burgerBuilder} />
+          </Switch>
         </BuildControlContext.Provider>
         <Modal
           visible={this.state.isModalVisible}
@@ -172,4 +186,4 @@ class BurgerBuilder extends React.Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+export default withRouter(withErrorHandler(BurgerBuilder, axios));
