@@ -1,13 +1,11 @@
 .CheckoutSummary {
   display: grid;
+  width: 50%;
   grid-template-columns: 2fr 1fr 1fr 2fr;
   grid-template-rows: 1fr 4fr 1fr;
   gap: 1rem;
-  padding: 1rem 90rem;
-  width: 100%;
-  align-self: center;
-  background: #369de2;
-  box-shadow: 0 -3px 10px rgba(0,0,0,.3);
+  padding: 1rem;
+  align-self: stretch;
 
   &__title {
     grid-row: 1 / 2;

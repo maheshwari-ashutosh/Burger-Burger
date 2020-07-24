@@ -1,0 +1,22 @@
+.Orders {
+  align-self: stretch;
+  background-color: #fdf4e4;
+
+  &__list {
+    list-style: none;
+    padding: 1rem;
+    font-size: 2rem;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.OrderItem {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 5px 5px rgba(0,0,0,.3);
+  justify-self: stretch;
+  align-self: stretch;
+  // width: 80%;
+}

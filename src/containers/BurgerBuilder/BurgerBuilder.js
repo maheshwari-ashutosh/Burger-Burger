@@ -14,6 +14,7 @@ import {
   updatePrice,
 } from '../../components/Burger/BurgerIngredient/Ingredient';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import ContactDetails from '../../components/Order/ContactDetails/ContactDetails';
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -89,7 +90,7 @@ class BurgerBuilder extends React.Component {
     }));
   }
 
-  confirmOrderHandler() {
+  confirmOrderHandler(name, phone, email, address) {
     this.setState({
       loading: true,
     });
@@ -97,13 +98,10 @@ class BurgerBuilder extends React.Component {
       ingredients: this.state.ingredients,
       price: this.state.price,
       customer: {
-        name: 'Ashutosh',
-        address: {
-          street: 'Test Street',
-          zip: '123463',
-          country: 'India',
-        },
-        email: 'ashutosh.ismcse@gmail.com  ',
+        name,
+        phone,
+        email,
+        address,
         deliveryMethod: 'fastest',
       },
     };
@@ -116,7 +114,7 @@ class BurgerBuilder extends React.Component {
           isModalVisible: false,
         });
         console.log(this.props);
-        this.props.history.push('/Checkout');
+        this.props.history.push('/');
       })
       .catch((error) => {
         this.setState({
@@ -139,7 +137,13 @@ class BurgerBuilder extends React.Component {
         total={this.state.price}
         ingredients={this.state.ingredients}
         cancel={this.checkoutHandler.bind(this)}
-        confirm={this.confirmOrderHandler.bind(this)}
+        confirm={() => {
+          this.props.history.push('/Checkout');
+          this.setState({
+            loading: false,
+            isModalVisible: false,
+          });
+        }}
       />
     );
 
@@ -158,8 +162,26 @@ class BurgerBuilder extends React.Component {
       <Spinner />
     );
 
-    let checkoutSummary = <CheckoutSummary ingredients={this.state.ingredients} total={this.state.price} cancel= {this.cancelCheckoutHandler.bind(this)}/>;
-
+    let checkoutSummary = (
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          backgroundColor: '#369de2',
+          boxShadow: '0 -3px 10px rgba(0,0,0,.3)',
+        }}
+      >
+        <CheckoutSummary
+          ingredients={this.state.ingredients}
+          total={this.state.price}
+          cancel={this.cancelCheckoutHandler.bind(this)}
+        />
+        <ContactDetails
+          confirm={this.confirmOrderHandler.bind(this)}
+          cancel={this.cancelCheckoutHandler.bind(this)}
+        />
+      </div>
+    );
     return (
       <>
         {burger}

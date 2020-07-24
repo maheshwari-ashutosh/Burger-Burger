@@ -23,15 +23,6 @@ const checkoutSummary = (props) => {
           <p>{props.total}</p>
         </li>
       </ul>
-      <button
-        onClick={props.cancel}
-        className='btn btn--red CheckoutSummary__cancel'
-      >
-        Cancel
-      </button>
-      <button className='btn btn--green CheckoutSummary__confirm'>
-        Continue
-      </button>
     </div>
   );
 };

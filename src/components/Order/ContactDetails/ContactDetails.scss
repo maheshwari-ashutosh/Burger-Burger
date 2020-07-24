@@ -1,0 +1,15 @@
+.ContactDetails {
+  width: 50%;
+  padding: 1rem;
+
+  &__input {
+    width: 80%;
+    margin: 1rem 0;
+  }
+
+  &__confirm,
+  &__cancel {
+    display: inline-block;
+    margin: 1rem 2rem;
+  }
+}
