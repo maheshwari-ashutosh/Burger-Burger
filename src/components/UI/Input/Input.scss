@@ -4,7 +4,7 @@
   padding-bottom: .5rem;
   font-size: 1.4rem;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 4px solid transparent;
   width: 80%;
   
   &__container {
@@ -13,11 +13,11 @@
 
   &:focus {
     outline: none;
-    border-bottom: 2px solid lightsalmon;
+    border-bottom: 4px solid lightsalmon;
   }
 
   &:not(:placeholder-shown) {
-    border-bottom: 2px solid lightgreen;
+    border-bottom: 4px solid lightgreen;
   }
 
   &:not(:placeholder-shown) + &__label {
@@ -33,5 +33,14 @@
     opacity: 0;
     transition: top .2s, opacity .2s;
     color: #aaa;
+  }
+
+  &__invalid {
+    &:focus {
+      border-bottom: 4px solid lightsalmon !important;
+    }
+    &:not(:placeholder-shown) {
+      border-bottom: 4px solid lightsalmon;
+    }
   }
 }

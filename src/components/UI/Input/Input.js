@@ -3,11 +3,15 @@ import './Input.scss';
 
 const input = (props) => {
   let input = null;
+  let classes = props.classes.split(' ');
+  if(!props.valid) {
+    classes.push('Input__invalid');
+  }
   switch (props.type) {
     case 'textarea':
       input = (
         <>
-          <textarea onChange={(event) => props.changed(event, props.id)} className="Input" {...props.config} />
+          <textarea onChange={(event) => props.changed(event, props.id)} className={`Input ${classes.join(' ')}`} {...props.config} />
           <label htmlFor={props.config.id} className='Input__label'>
             {props.config.placeholder}
           </label>
@@ -30,7 +34,7 @@ const input = (props) => {
     default:
       input = (
         <>
-          <input onChange={(event) => props.changed(event, props.id)} className="Input" {...props.config} />
+          <input onChange={(event) => props.changed(event, props.id)} className={`Input ${classes.join(' ')}`} {...props.config} />
           <label htmlFor={props.config.id} className='Input__label'>
             {props.config.placeholder}
           </label>
