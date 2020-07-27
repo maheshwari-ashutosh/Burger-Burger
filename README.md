@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Prerequisite
+[Server for running Burger Burger app](https://github.com/maheshwari-ashutosh/Burger-Burger-Server)
 
 ## Available Scripts
 
