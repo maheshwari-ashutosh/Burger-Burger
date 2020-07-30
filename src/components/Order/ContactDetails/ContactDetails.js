@@ -77,7 +77,7 @@ class ContactDetails extends React.Component {
           {value: 'cheapest', displayValue: 'Cheapest'},
         ],
         classes: 'ContactDetails__input',
-        value: '',
+        value: 'fastest',
         validation: {
           isValid: true,
         },

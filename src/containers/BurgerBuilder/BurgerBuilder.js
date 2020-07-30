@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import axios from '../../axios-order';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -15,11 +16,10 @@ import {
 } from '../../components/Burger/BurgerIngredient/Ingredient';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactDetails from '../../components/Order/ContactDetails/ContactDetails';
+import * as actions from '../../store/actions/actions';
 
 class BurgerBuilder extends React.Component {
   state = {
-    ingredients: {},
-    price: 40,
     numberOfIngredients: 0,
     isModalVisible: false,
     loading: false,
@@ -51,34 +51,20 @@ class BurgerBuilder extends React.Component {
   }
 
   addIngredientHandler(ingredient, event) {
+    this.props.onAddIngredient(ingredient);
+    this.props.onPriceUpdate(Price[ingredient]);
     this.setState((state) => {
-      const ingredients = {...state.ingredients};
-      ingredients[ingredient] = ingredients[ingredient]
-        ? ingredients[ingredient] + 1
-        : 1;
-      const price = state.price + Price[ingredient];
       return {
-        ingredients,
-        price,
         numberOfIngredients: state.numberOfIngredients + 1,
       };
     });
   }
 
   removeIngredientHandler(ingredient, event) {
+    this.props.onRemoveIngredient(ingredient);
+    this.props.onPriceUpdate(-Price[ingredient]);
     this.setState((state) => {
-      const ingredients = {...state.ingredients};
-      let price = state.price;
-      if (ingredients[ingredient]) {
-        ingredients[ingredient]--;
-        price -= Price[ingredient];
-        if (!ingredients[ingredient]) {
-          delete ingredients[ingredient];
-        }
-      }
       return {
-        ingredients,
-        price,
         numberOfIngredients: state.numberOfIngredients - 1,
       };
     });
@@ -95,8 +81,8 @@ class BurgerBuilder extends React.Component {
       loading: true,
     });
     const data = {
-      ingredients: this.state.ingredients,
-      price: this.state.price,
+      ingredients: this.props.ingredients,
+      price: this.props.price,
       customer: {
         name,
         phone,
@@ -134,8 +120,8 @@ class BurgerBuilder extends React.Component {
       <Spinner />
     ) : (
       <OrderSummary
-        total={this.state.price}
-        ingredients={this.state.ingredients}
+        total={this.props.price}
+        ingredients={this.props.ingredients}
         cancel={this.checkoutHandler.bind(this)}
         confirm={() => {
           this.props.history.push('/Checkout');
@@ -148,14 +134,14 @@ class BurgerBuilder extends React.Component {
     );
 
     let burger = this.state.isIngredientsLoaded ? (
-      <Burger ingredients={this.state.ingredients} />
+      <Burger ingredients={this.props.ingredients} />
     ) : (
       <Spinner />
     );
     let burgerBuilder = this.state.isIngredientsLoaded ? (
       <BuildControls
         checkout={this.checkoutHandler.bind(this)}
-        price={this.state.price}
+        price={this.props.price}
         isOrderPlaceable={this.state.numberOfIngredients !== 0}
       />
     ) : (
@@ -172,8 +158,8 @@ class BurgerBuilder extends React.Component {
         }}
       >
         <CheckoutSummary
-          ingredients={this.state.ingredients}
-          total={this.state.price}
+          ingredients={this.props.ingredients}
+          total={this.props.price}
           cancel={this.cancelCheckoutHandler.bind(this)}
         />
         <ContactDetails
@@ -187,7 +173,7 @@ class BurgerBuilder extends React.Component {
         {burger}
         <BuildControlContext.Provider
           value={{
-            ingredients: this.state.ingredients,
+            ingredients: this.props.ingredients,
             add: this.addIngredientHandler.bind(this),
             remove: this.removeIngredientHandler.bind(this),
           }}
@@ -208,4 +194,19 @@ class BurgerBuilder extends React.Component {
   }
 }
 
-export default withRouter(withErrorHandler(BurgerBuilder, axios));
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients.ingredients,
+    price: state.price.price,
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onPriceUpdate: (price) => dispatch({type: actions.UPDATE_PRICE , price}),
+    onAddIngredient: (ingredient) => dispatch({type: actions.ADD_INGREDIENT , ingredient}),
+    onRemoveIngredient: (ingredient) => dispatch({type: actions.REMOVE_INGREDIENT , ingredient}),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(BurgerBuilder, axios)));

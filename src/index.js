@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers} from 'redux';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import priceReducer from './store/reducers/price';
+import ingredientReducer from './store/reducers/ingredients';
+
+const rootReducer = combineReducers({
+  price: priceReducer,
+  ingredients: ingredientReducer,
+});
+const store = createStore(rootReducer);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
