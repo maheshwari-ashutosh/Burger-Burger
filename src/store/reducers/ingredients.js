@@ -1,6 +1,8 @@
-import {ADD_INGREDIENT, REMOVE_INGREDIENT} from '../actions/actions';
+import {ADD_INGREDIENT, REMOVE_INGREDIENT} from '../actions/actionsTypes';
 const initialState = {
   ingredients: {},
+  price: 40,
+  numberOfIngredients: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +15,8 @@ const reducer = (state = initialState, action) => {
             ? +state.ingredients[action.ingredient] + 1
             : 1,
         },
+        price: state.price + action.price,
+        numberOfIngredients: state.numberOfIngredients+1,
       };
     case REMOVE_INGREDIENT:
       const ingredients = {
@@ -24,6 +28,8 @@ const reducer = (state = initialState, action) => {
       }
       return {
         ingredients,
+        price: state.price - action.price,
+        numberOfIngredients: state.numberOfIngredients-1,
       };
     default:
       return state;

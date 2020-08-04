@@ -16,11 +16,10 @@ import {
 } from '../../components/Burger/BurgerIngredient/Ingredient';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactDetails from '../../components/Order/ContactDetails/ContactDetails';
-import * as actions from '../../store/actions/actions';
+import * as actions from '../../store/actions/ingredients';
 
 class BurgerBuilder extends React.Component {
   state = {
-    numberOfIngredients: 0,
     isModalVisible: false,
     loading: false,
     isIngredientsLoaded: false,
@@ -30,7 +29,6 @@ class BurgerBuilder extends React.Component {
     axios
       .get('/ingredients')
       .then((res) => {
-        console.log(res.data);
         updateIngredient(res.data[0].ingredients);
         updatePrice(res.data[0].prices);
         this.setState({
@@ -38,7 +36,6 @@ class BurgerBuilder extends React.Component {
         });
       })
       .catch((error) => {
-        console.log(error);
         this.setState({
           isIngredientsLoaded: true,
         });
@@ -47,27 +44,14 @@ class BurgerBuilder extends React.Component {
 
   componentDidMount() {
     this.fetchIngredients();
-    console.log(this.props);
   }
 
-  addIngredientHandler(ingredient, event) {
-    this.props.onAddIngredient(ingredient);
-    this.props.onPriceUpdate(Price[ingredient]);
-    this.setState((state) => {
-      return {
-        numberOfIngredients: state.numberOfIngredients + 1,
-      };
-    });
+  addIngredientHandler(ingredient) {
+    this.props.onAddIngredient(ingredient, Price[ingredient]);
   }
 
-  removeIngredientHandler(ingredient, event) {
-    this.props.onRemoveIngredient(ingredient);
-    this.props.onPriceUpdate(-Price[ingredient]);
-    this.setState((state) => {
-      return {
-        numberOfIngredients: state.numberOfIngredients - 1,
-      };
-    });
+  removeIngredientHandler(ingredient) {
+    this.props.onRemoveIngredient(ingredient, Price[ingredient]);
   }
 
   checkoutHandler() {
@@ -142,7 +126,7 @@ class BurgerBuilder extends React.Component {
       <BuildControls
         checkout={this.checkoutHandler.bind(this)}
         price={this.props.price}
-        isOrderPlaceable={this.state.numberOfIngredients !== 0}
+        isOrderPlaceable={this.props.numberOfIngredients !== 0}
       />
     ) : (
       <Spinner />
@@ -197,15 +181,15 @@ class BurgerBuilder extends React.Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients.ingredients,
-    price: state.price.price,
+    price: state.ingredients.price,
+    numberOfIngredients: state.ingredients.numberOfIngredients,
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onPriceUpdate: (price) => dispatch({type: actions.UPDATE_PRICE , price}),
-    onAddIngredient: (ingredient) => dispatch({type: actions.ADD_INGREDIENT , ingredient}),
-    onRemoveIngredient: (ingredient) => dispatch({type: actions.REMOVE_INGREDIENT , ingredient}),
+    onAddIngredient: (ingredient, price) => dispatch(actions.addIngredient(ingredient, price)),
+    onRemoveIngredient: (ingredient, price) => dispatch(actions.removeIngredient(ingredient, price)),
   }
 }
 

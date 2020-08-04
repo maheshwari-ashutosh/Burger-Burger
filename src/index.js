@@ -5,11 +5,9 @@ import {createStore, combineReducers} from 'redux';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import priceReducer from './store/reducers/price';
 import ingredientReducer from './store/reducers/ingredients';
 
 const rootReducer = combineReducers({
-  price: priceReducer,
   ingredients: ingredientReducer,
 });
 const store = createStore(rootReducer);
