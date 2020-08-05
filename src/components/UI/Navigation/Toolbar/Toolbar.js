@@ -8,6 +8,7 @@ const toolbar = (props) => {
   const navList = [
     new NavItem('Burger Builder', '/'),
     new NavItem('Orders', '/orders'),
+    new NavItem('Sign In', '/sign-in')
   ];
 
   return (

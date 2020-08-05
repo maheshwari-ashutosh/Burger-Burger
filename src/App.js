@@ -4,6 +4,8 @@ import Layout from './components/Layout/Layout';
 import './App.scss';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Orders from './components/Order/Orders';
+import Signin from './containers/Auth/Signin';
+import Signup from './containers/Auth/Signup';
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Layout>
           <Switch>
           <Route path='/orders' exact component={Orders} />
+          <Route path='/sign-in' component={Signin} />
+          <Route path='/sign-up' component={Signup} />
           <Route path='/' component={BurgerBuilder} />
           </Switch>
         </Layout>
