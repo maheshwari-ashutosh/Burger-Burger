@@ -11,12 +11,20 @@ class Orders extends Component {
 
   componentDidMount() {
     if(this.state.orders.length === 0) {
-      axios.get('/orders').then(res => {
-        const orders = res.data;
+      axios.get('/orders.json').then(res => {
+        const orders = Object.keys(res.data).map(key => {
+          return {
+            _id: key,
+            ...res.data[key]
+          }
+        });
+        if(!orders) {
+          return;
+        }
+        console.log(orders);
         this.setState({
           orders,
         });
-        console.log(orders);
       }).catch(error => {
         console.log(error);
       });

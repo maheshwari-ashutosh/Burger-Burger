@@ -27,10 +27,11 @@ class BurgerBuilder extends React.Component {
 
   fetchIngredients() {
     axios
-      .get('/ingredients')
+      .get('/.json')
       .then((res) => {
-        updateIngredient(res.data[0].ingredients);
-        updatePrice(res.data[0].prices);
+        console.log(res.data);
+        updateIngredient(res.data.ingredients);
+        updatePrice(res.data.prices);
         this.setState({
           isIngredientsLoaded: true,
         });
@@ -76,7 +77,7 @@ class BurgerBuilder extends React.Component {
       },
     };
     axios
-      .post('/orders', data)
+      .post('/orders.json', data)
       .then((res) => {
         console.log(res);
         this.setState({
@@ -84,6 +85,7 @@ class BurgerBuilder extends React.Component {
           isModalVisible: false,
         });
         console.log(this.props);
+        this.props.onResetIngredient();
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -190,6 +192,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddIngredient: (ingredient, price) => dispatch(actions.addIngredient(ingredient, price)),
     onRemoveIngredient: (ingredient, price) => dispatch(actions.removeIngredient(ingredient, price)),
+    onResetIngredient: () => dispatch(actions.resetIngredient()),
   }
 }
 

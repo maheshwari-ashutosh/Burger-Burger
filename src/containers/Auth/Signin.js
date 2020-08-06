@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import './Auth.scss';
 import Input from '../../components/UI/Input/Input';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import {auth} from '../../store/actions/auth';
 
 class SignIn extends Component {
   state = {
@@ -77,11 +79,29 @@ class SignIn extends Component {
       <div className='Auth'>
         <h1 className='Auth__title'>Sign In</h1>
         {input}
-        <button className='btn btn--green'>Sign in</button>
-        <p className='Auth__signup'>New User! Sign up <NavLink to='/sign-up'>here</NavLink></p>
+        <button
+          onClick={() =>
+            this.props.onSignIn(
+              this.state.controls.email.value,
+              this.state.controls.password.value,
+            )
+          }
+          className='btn btn--green'
+        >
+          Sign in
+        </button>
+        <p className='Auth__signup'>
+          New User! Sign up <NavLink to='/sign-up'>here</NavLink>
+        </p>
       </div>
     );
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignIn: (email, password) => dispatch(auth(email, password)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);
