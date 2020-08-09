@@ -126,7 +126,7 @@ class Auth extends Component {
         {input}
         {button}
         {this.props.loading ? <Spinner /> : null}
-        {this.props.userId && <Redirect to='/' />}
+        {/* {this.props.userId && <Redirect to='/' />} */}
       </div>
     );
   }

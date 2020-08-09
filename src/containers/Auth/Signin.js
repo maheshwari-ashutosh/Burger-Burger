@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import './Auth.scss';
 import Input from '../../components/UI/Input/Input';
 import {NavLink} from 'react-router-dom';
-import {auth} from '../../store/actions/auth';
+import {signin} from '../../store/actions/signin';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class SignIn extends Component {
   state = {
@@ -102,15 +103,25 @@ class SignIn extends Component {
         <p className='Auth__signup'>
           New User! Sign up <NavLink to='/sign-up'>here</NavLink>
         </p>
+        {this.props.loading ? <Spinner /> : null}
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    onSignIn: (email, password) => dispatch(auth(email, password)),
+    idToken: state.auth.idToken,
+    refrestToken: state.auth.refrestToken,
+    userId: state.auth.userId,
+    loading: state.auth.loading,
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignIn);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignIn: (email, password) => dispatch(signin(email, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
