@@ -6,9 +6,9 @@ import Backdrop from '../Backdrop/Backdrop';
 import './Sidebar.scss';
 const sidebar = (props) => {
   const navList = [
-    new NavItem('About', '#'),
-    new NavItem('Burger Builder', '#'),
-    new NavItem('Help', '#'),
+    new NavItem('Burger Builder', '/'),
+    new NavItem('Orders', '/orders'),
+    new NavItem('Sign In', '/sign-in')
   ];
   const backdrop = props.style.transform === 'none' && <Backdrop dismiss={props.dismiss} style={{visibility: 'visible', opacity: '1', 'z-index': '3'}} />
 
@@ -16,6 +16,7 @@ const sidebar = (props) => {
     <>
       <div className='Sidebar' style={props.style}>
         <Navigation
+          dismiss={props.dismiss}
           navList={navList}
           className='Sidebar__navigation'
           itemClassName='Sidebar__navigation--item'

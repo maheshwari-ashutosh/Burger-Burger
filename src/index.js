@@ -7,9 +7,11 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ingredientReducer from './store/reducers/ingredients';
+import authReducer from './store/reducers/auth';
 
 const rootReducer = combineReducers({
   ingredients: ingredientReducer,
+  auth: authReducer,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

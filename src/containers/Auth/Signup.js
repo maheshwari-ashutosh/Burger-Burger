@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import './Auth.scss';
 import Input from '../../components/UI/Input/Input';
+import axios from '../../axios-auth';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import {signup} from '../../store/actions/signup';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Auth extends Component {
   state = {
@@ -54,6 +60,7 @@ class Auth extends Component {
         },
       },
     },
+    isReady: false,
   };
 
   inputChangedHandler(event, key) {
@@ -74,11 +81,36 @@ class Auth extends Component {
     this.setState((state) => {
       state.controls[key].value = val;
       state.controls[key].validation.isValid = isValid;
+      let isReady = true;
+      for (let key in state.controls) {
+        if (!state.controls[key].validation.isValid) {
+          isReady = false;
+        }
+      }
+      state.isReady = isReady;
       return state;
     });
   }
 
   render() {
+    
+    const onSignUp = () =>
+      this.props.onSignUp(
+        this.state.controls.name.value,
+        this.state.controls.email.value,
+        this.state.controls.password.value,
+      );
+    const button = this.state.isReady ? (
+      <button onClick={onSignUp} className='btn btn--green'>
+        {' '}
+        Sign up
+      </button>
+    ) : (
+      <button onClick={onSignUp} disabled className='btn btn--green'>
+        {' '}
+        Sign up
+      </button>
+    );
     const input = Object.keys(this.state.controls).map((name) => (
       <Input
         id={name}
@@ -92,10 +124,28 @@ class Auth extends Component {
       <div className='Auth'>
         <h1 className='Auth__title'>Sign Up!</h1>
         {input}
-        <button className='btn btn--green'> Sign up</button>
+        {button}
+        {this.props.loading ? <Spinner /> : null}
+        {this.props.userId && <Redirect to='/' />}
       </div>
     );
   }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+  return {
+    idToken: state.auth.idToken,
+    refrestToken: state.auth.refrestToken,
+    userId: state.auth.userId,
+    loading: state.auth.loading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignUp: (name, email, password) =>
+      dispatch(signup(name, email, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Auth, axios));

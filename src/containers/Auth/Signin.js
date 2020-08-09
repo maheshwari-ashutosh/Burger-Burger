@@ -65,6 +65,15 @@ class SignIn extends Component {
     });
   }
 
+  validationHandler() {
+    for(let key in this.state.controls) {
+      if(!this.state.controls[key].validation.isValid) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   render() {
     const input = Object.keys(this.state.controls).map((name) => (
       <Input

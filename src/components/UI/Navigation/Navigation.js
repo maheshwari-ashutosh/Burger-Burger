@@ -6,7 +6,7 @@ import './Navigation.scss';
 const navigation = (props) => {
   const list = props.navList.map((item) => {
     return (
-      <li key={item.name} className={`Navigation__item ${props.itemClassName}`}>
+      <li key={item.name} className={`Navigation__item ${props.itemClassName}`} onClick={props.dismiss}>
         <NavLink to={item.link} exact>{item.name}</NavLink>
       </li>
     );
