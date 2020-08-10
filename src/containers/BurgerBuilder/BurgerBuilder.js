@@ -27,7 +27,7 @@ class BurgerBuilder extends React.Component {
 
   fetchIngredients() {
     axios
-      .get('/.json')
+      .get('/ingredients.json')
       .then((res) => {
         console.log(res.data);
         updateIngredient(res.data.ingredients);
@@ -77,7 +77,7 @@ class BurgerBuilder extends React.Component {
       },
     };
     axios
-      .post('/orders.json', data)
+      .post(`/orders.json?auth=${this.props.idToken}`, data)
       .then((res) => {
         console.log(res);
         this.setState({
@@ -185,6 +185,7 @@ const mapStateToProps = state => {
     ingredients: state.ingredients.ingredients,
     price: state.ingredients.price,
     numberOfIngredients: state.ingredients.numberOfIngredients,
+    idToken: state.auth.idToken,
   }
 };
 

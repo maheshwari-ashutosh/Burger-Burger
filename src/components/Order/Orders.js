@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from '../../axios-order';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Order from './Order';
+import {connect} from 'react-redux';
 
 class Orders extends Component {
   
@@ -11,7 +12,7 @@ class Orders extends Component {
 
   componentDidMount() {
     if(this.state.orders.length === 0) {
-      axios.get('/orders.json').then(res => {
+      axios.get(`/orders.json?auth=${this.props.idToken}`).then(res => {
         const orders = Object.keys(res.data).map(key => {
           return {
             _id: key,
@@ -46,4 +47,10 @@ class Orders extends Component {
   }
 }
 
-export default withErrorHandler(Orders ,axios);
+const mapStateToProps = state => {
+  return {
+    idToken: state.auth.idToken,
+  }
+}
+
+export default connect(mapStateToProps)(withErrorHandler(Orders ,axios));

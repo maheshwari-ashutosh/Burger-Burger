@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import './Auth.scss';
 import Input from '../../components/UI/Input/Input';
 import axios from '../../axios-auth';
@@ -126,7 +125,6 @@ class Auth extends Component {
         {input}
         {button}
         {this.props.loading ? <Spinner /> : null}
-        {/* {this.props.userId && <Redirect to='/' />} */}
       </div>
     );
   }
