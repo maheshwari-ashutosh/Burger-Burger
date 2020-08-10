@@ -5,7 +5,6 @@ const logo = (props) => {
    return (
       <div className={props.className}>
         <img src={logoPath} alt="Burger Burger Logo"/>
-        <img src={logoPath} alt="Burger Burger Logo"/>
       </div>
    );
 }

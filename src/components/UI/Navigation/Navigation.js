@@ -21,6 +21,9 @@ const navigation = (props) => {
     }
   }
   const list = props.navList.map((item) => {
+    if(item === null) {
+      return null;
+    }
     return (
       <li key={item.name} className={`Navigation__item ${props.itemClassName}`} onClick={onClick(item.name)}>
         <NavLink to={item.link} exact>{item.name}</NavLink>

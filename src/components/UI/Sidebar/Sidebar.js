@@ -14,7 +14,7 @@ const sidebar = (props) => {
 
   const navList = [
     new NavItem('Burger Builder', '/'),
-    new NavItem('Orders', '/orders'),
+    props.idToken && new NavItem('Orders', '/orders'),
     auth
   ];
   const backdrop = props.style.transform === 'none' && <Backdrop dismiss={props.dismiss} style={{visibility: 'visible', opacity: '1', 'z-index': '3'}} />

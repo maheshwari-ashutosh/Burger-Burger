@@ -15,7 +15,7 @@ const toolbar = (props) => {
 
   const navList = [
     new NavItem('Burger Builder', '/'),
-    new NavItem('Orders', '/orders'),
+    props.idToken && new NavItem('Orders', '/orders'),
     auth,
   ];
 
