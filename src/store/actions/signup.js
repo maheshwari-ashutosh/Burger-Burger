@@ -28,6 +28,10 @@ export const signup = (name, email, password) => {
     dispatch(signupStart());
     axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`, {email, password, returnSecureToken: true}).then(res => {
       console.log(res.data);
+      localStorage.setItem('idToken', res.data.idToken);
+      localStorage.setItem('expiryTime', new Date().getTime() + (+res.data.expiresIn*1000));
+      localStorage.setItem('refreshToken', res.data.refreshToken);
+      localStorage.setItem('localId', res.data.localId);
       dispatch(signupSuccess(res.data));
       setTimeout(() => {
         dispatch(logout());

@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
   ingredients: ingredientReducer,
   auth: authReducer,
 });
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 

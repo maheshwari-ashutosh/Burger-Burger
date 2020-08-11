@@ -66,6 +66,7 @@ class BurgerBuilder extends React.Component {
       loading: true,
     });
     const data = {
+      userId: this.props.userId,
       ingredients: this.props.ingredients,
       price: this.props.price,
       customer: {
@@ -186,6 +187,7 @@ const mapStateToProps = state => {
     price: state.ingredients.price,
     numberOfIngredients: state.ingredients.numberOfIngredients,
     idToken: state.auth.idToken,
+    userId: state.auth.userId,
   }
 };
 

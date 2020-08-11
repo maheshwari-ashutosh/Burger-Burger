@@ -29,6 +29,10 @@ export const signin = (email, password) => {
     axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, {email, password, returnSecureToken: true}).then(res => {
       console.log(res.data);
       dispatch(signinSuccess(res.data));
+      localStorage.setItem('idToken', res.data.idToken);
+      localStorage.setItem('expiryTime', new Date().getTime() + (+res.data.expiresIn*1000));
+      localStorage.setItem('refreshToken', res.data.refreshToken);
+      localStorage.setItem('localId', res.data.localId);
       setTimeout(() => {
         dispatch(logout());
       }, +res.data.expiresIn*1000);
@@ -36,5 +40,27 @@ export const signin = (email, password) => {
       console.log(error);
       dispatch(signinFail(error));
     });
+  }
+}
+
+export const checkAuthStatus = () => {
+  return dispatch => {
+    const idToken = localStorage.getItem('idToken');
+    if(!idToken) {
+      dispatch(logout());
+      return;
+    }
+    const expiryTime = localStorage.getItem('expiryTime');
+    if(new Date().getTime() > expiryTime) {
+      dispatch(logout());
+      return;
+    }
+    const expiresIn = expiryTime - new Date().getTime();
+    setTimeout(() => {
+      dispatch(logout());
+    }, expiresIn);
+    const localId = localStorage.getItem('localId');
+    const refreshToken = localStorage.getItem('refreshToken');
+    dispatch(signinSuccess({idToken, localId, refreshToken}));
   }
 }
