@@ -10,6 +10,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import BuildControlContext from '../../Context/BuildControlContext';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import {Ingredient} from '../../components/Burger/BurgerIngredient/Ingredient';
 import {
   updateIngredient,
   updatePrice,
@@ -26,6 +27,12 @@ class BurgerBuilder extends React.Component {
   };
 
   fetchIngredients() {
+    if (Object.keys(Ingredient).length !== 0) {
+      this.setState({
+        isIngredientsLoaded: true,
+      });
+      return;
+    }
     axios
       .get('/ingredients.json')
       .then((res) => {
@@ -181,22 +188,27 @@ class BurgerBuilder extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     ingredients: state.ingredients.ingredients,
     price: state.ingredients.price,
     numberOfIngredients: state.ingredients.numberOfIngredients,
     idToken: state.auth.idToken,
     userId: state.auth.userId,
-  }
+  };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onAddIngredient: (ingredient, price) => dispatch(actions.addIngredient(ingredient, price)),
-    onRemoveIngredient: (ingredient, price) => dispatch(actions.removeIngredient(ingredient, price)),
+    onAddIngredient: (ingredient, price) =>
+      dispatch(actions.addIngredient(ingredient, price)),
+    onRemoveIngredient: (ingredient, price) =>
+      dispatch(actions.removeIngredient(ingredient, price)),
     onResetIngredient: () => dispatch(actions.resetIngredient()),
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(BurgerBuilder, axios)));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(withErrorHandler(BurgerBuilder, axios)));
