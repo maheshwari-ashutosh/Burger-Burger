@@ -6,6 +6,7 @@ import './App.scss';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import {checkAuthStatus} from './store/actions/signin';
 import withAsycnLoading from './hoc/withAsyncLoading/withAsyncLoading';
+import image from './assets/images/BurgerBuilder.jpg';
 
 const orders = withAsycnLoading(() => import('./components/Order/Orders'));
 const signin = withAsycnLoading(() => import('./containers/Auth/Signin'));
@@ -30,6 +31,7 @@ class App extends React.Component {
             </Switch>
           </Layout>
         </BrowserRouter>
+      <img src={image} alt='Hello' style={{display: 'none'}} />
       </div>
     );
   }
